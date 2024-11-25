@@ -3,7 +3,7 @@
     --primario: #11998e;
     --secundario:#38ef7d;
     --branco: #fff;
-    --cinza:#9b9b9b;
+    --cinza:#5a5a5a;
 }
 .form__group {
   position: relative;
@@ -55,7 +55,7 @@
     font-weight:700;    
   }
   padding-bottom: 6px;  
-  font-weight: 700;
+  font-weight: 400;
   border-width: 3px;
   border-image: linear-gradient(to right, var(--primario),var(--secundario));
   border-image-slice: 1;
