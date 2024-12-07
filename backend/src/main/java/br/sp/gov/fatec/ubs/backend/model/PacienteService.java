@@ -26,4 +26,9 @@ public class PacienteService {
     public Paciente salvarPaciente(Paciente paciente) {
         return pacienteRepository.save(paciente);  // Salva o paciente no banco
     }
+
+    // Método para excluir paciente
+    public void excluirPaciente(Long id) {
+        pacienteRepository.deleteById(id);
+    }
 }

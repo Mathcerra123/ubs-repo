@@ -40,5 +40,15 @@ public class PacienteController {
         }
     }
 
-    // Outros endpoints para atualização ou exclusão de pacientes podem ser adicionados conforme necessário
+    // Endpoint para excluir paciente
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> excluirPaciente(@PathVariable Long id) {
+        Optional<Paciente> paciente = pacienteService.buscarPacientePorId(id);
+        if (paciente.isPresent()) {
+            pacienteService.excluirPaciente(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }
