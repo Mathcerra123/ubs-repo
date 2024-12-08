@@ -1,20 +1,22 @@
-import { Component, OnInit } from '@angular/core';  
-import { CommonModule } from '@angular/common';  // Importação do CommonModule
-import { FormsModule } from '@angular/forms';    // Importação do FormsModule
-import { PacienteService } from '../service/paciente.service';  
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { PacienteService } from '../service/paciente.service';
 
 @Component({
   selector: 'app-lista',
   templateUrl: './lista.component.html',
   styleUrls: ['./lista.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule],  // Adicionando FormsModule aqui
+  imports: [CommonModule, FormsModule],
   providers: [PacienteService]
 })
 export class ListaComponent implements OnInit {
   pacientes: any[] = [];
   pesquisaId: string = '';
   mensagem: string = '';
+  pacienteSelecionado: any = null;
+  mostrarModalEditar: boolean = false;
 
   constructor(private pacienteService: PacienteService) {}
 
@@ -62,5 +64,31 @@ export class ListaComponent implements OnInit {
         },
       });
     }
+  }
+
+  abrirModalEditar(paciente: any): void {
+    console.log('Paciente selecionado:', paciente);  // Verifique os dados no console
+    this.pacienteSelecionado = { ...paciente };  // Cria uma cópia do paciente para edição
+    this.mostrarModalEditar = true;
+  }
+
+  fecharModal(): void {
+    this.mostrarModalEditar = false;
+    this.pacienteSelecionado = null;
+  }
+
+  atualizarPaciente(): void {
+    console.log('Paciente a ser atualizado:', this.pacienteSelecionado);  // Verifique se o objeto está correto
+    this.pacienteService.editarPaciente(this.pacienteSelecionado.id, this.pacienteSelecionado).subscribe({
+      next: (paciente) => {
+        console.log('Paciente atualizado com sucesso:', paciente);
+        this.fecharModal();  // Fecha a modal após atualização
+        this.carregarPacientes();  // Atualiza a lista de pacientes
+      },
+      error: (err) => {
+        console.error('Erro ao atualizar paciente:', err);
+        this.mensagem = 'Erro ao atualizar paciente.';
+      }
+    });
   }
 }

@@ -21,4 +21,11 @@ export class PacienteService {
   excluirPaciente(id: string): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/${id}`);  // Requisição DELETE passando o ID do paciente
   }
+
+  editarPaciente(id: string, paciente: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${id}`, paciente);  // Requisição PUT passando o id e os dados do paciente
+  }
+  
+  
+  
 }
