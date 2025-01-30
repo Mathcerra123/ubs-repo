@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class PacienteService {
-  private apiUrl = 'http://localhost:8081/api/pacientes';  // URL do backend diretamente no código
+  private apiUrl = 'http://localhost:8090/api/pacientes';  // URL do backend diretamente no código
 
   constructor(private http: HttpClient) {}
 
